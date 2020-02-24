@@ -24,14 +24,20 @@ class FaceDetector:
                 cv2.rectangle(roi_color, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 4)
                 eyes_count += 1
 
-        small = cv2.resize(self.target_image, (0,0), fx=0.4, fy=0.4)
-        cv2.imshow('Photo', small)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        return self.target_image
+
+
+def show_image(detected_img):
+    small_img = cv2.resize(detected_img, (0, 0), fx=0.4, fy=0.4)
+    cv2.imshow('Photo', small_img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
 
 if __name__ == "__main__":
     image_path = os.path.join('target_images', 'image_6.jpg')
 
     detector = FaceDetector(image_path)
-    detector.find_faces()
+    detected_img = detector.find_faces()
+    show_image(detected_img)
+
